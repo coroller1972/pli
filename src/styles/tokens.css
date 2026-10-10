@@ -1,0 +1,109 @@
+/*
+ * Pli — tokens de la direction artistique « atelier pastel » :
+ * un papier crème, du blanc, des pastels poudrés (rose, menthe, sable, ciel)
+ * et un rose framboise réservé à l'action principale et au marqueur « geste animé ».
+ * L'encre est un bleu ardoise plutôt qu'un noir. Les grands titres sont écrits à la main.
+ * La planche (zone des schémas) reste claire même en mode sombre : c'est une feuille posée sur la table.
+ */
+:root {
+  --papier: #f8f3ec;
+  --verso: #ffffff;
+  --sumi: #3d4058;
+  --graphite: #5f6170;
+  --texte-doux: #4c4f63;
+  --ligne: #ece2ce;
+  --ligne-forte: #e0d2bc;
+  --indigo: #3d4058;
+  --vermillon: #c23f49;
+  --vermillon-fonce: #a8333d;
+  --vermillon-texte: #b0343e;
+  --vermillon-pale: #f3b9bd;
+  --sur-vermillon: #ffffff;
+
+  /* Les pastels de la boîte de papiers. */
+  --sakura: #f2b8bd;
+  --sakura-pale: #f8dada;
+  --sakura-texte: #a12f3a;
+  --menthe: #5eb7b2;
+  --menthe-pale: #dff1ef;
+  --menthe-texte: #2b6f6a;
+  --sora: #9cc6dd;
+  --sora-pale: #e6f1f6;
+  --yuzu: #f5a524;
+  --yuzu-pale: #fff1dc;
+  --yuzu-texte: #8a5a00;
+  --sable: #ece2ce;
+
+  --planche: #ffffff;
+  --planche-points: #ece2ce;
+  --encre-planche: #3d4058;
+  --ombre-carte: 0 1px 2px rgba(43, 45, 58, 0.05), 0 10px 26px -14px rgba(43, 45, 58, 0.22);
+  --ombre-bouton: 0 3px 0 var(--vermillon-fonce);
+
+  --police-titre: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'Arial Rounded MT Bold', system-ui, sans-serif;
+  --police-manuscrite: 'Kalam', 'Bradley Hand', 'Segoe Print', cursive;
+  --police-texte: 'Nunito', 'Avenir Next', system-ui, sans-serif;
+  --police-repere: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', system-ui, sans-serif;
+
+  --rayon: 14px;
+  --rayon-petit: 10px;
+  --rayon-pilule: 999px;
+  --coin: 22px; /* taille du coin corné */
+
+  --courbe-papier: cubic-bezier(0.65, 0, 0.35, 1);
+  --courbe-rebond: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --papier: #2e3144;
+    --verso: #383c52;
+    --sumi: #eef0f6;
+    --graphite: #b4b7c7;
+    --texte-doux: #d6d8e3;
+    --ligne: #45496180;
+    --ligne-forte: #555a75;
+    --indigo: #b9c4f0;
+    --vermillon-texte: #ff9aa2;
+    --vermillon-pale: #6e3a44;
+    --sakura-pale: #4a3a4a;
+    --sakura-texte: #ffc4ca;
+    --menthe-pale: #2f4a4e;
+    --menthe-texte: #a8e3dd;
+    --sora-pale: #34465a;
+    --yuzu-pale: #4b4434;
+    --yuzu-texte: #ffd78a;
+    --sable: #4a4a5c;
+    --planche: #fbf7f1;
+    --planche-points: #e6dccb;
+    --ombre-carte: none;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --papier: #2e3144;
+  --verso: #383c52;
+  --sumi: #eef0f6;
+  --graphite: #b4b7c7;
+  --texte-doux: #d6d8e3;
+  --ligne: #45496180;
+  --ligne-forte: #555a75;
+  --indigo: #b9c4f0;
+  --vermillon-texte: #ff9aa2;
+  --vermillon-pale: #6e3a44;
+  --sakura-pale: #4a3a4a;
+  --sakura-texte: #ffc4ca;
+  --menthe-pale: #2f4a4e;
+  --menthe-texte: #a8e3dd;
+  --sora-pale: #34465a;
+  --yuzu-pale: #4b4434;
+  --yuzu-texte: #ffd78a;
+  --sable: #4a4a5c;
+  --planche: #fbf7f1;
+  --planche-points: #e6dccb;
+  --ombre-carte: none;
+  color-scheme: dark;
+}

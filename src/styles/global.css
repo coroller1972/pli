@@ -1,0 +1,1217 @@
+/* ─── Base ─────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--papier);
+  /* Les fibres du washi : un grain très léger. */
+  background-image: radial-gradient(circle at 70% 80%, color-mix(in srgb, var(--ligne-forte) 45%, transparent) 0 1px, transparent 1.5px);
+  background-size: 29px 31px;
+  color: var(--sumi);
+  font-family: var(--police-texte);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+p,
+dl,
+dd,
+ul,
+ol {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--indigo);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) :focus-visible {
+    outline-color: #b9c4f0;
+  }
+}
+
+.visuellement-cache {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ─── Mise en page ─────────────────────────────────────────────────────── */
+.page {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 16px 16px 32px;
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 900px) {
+  .page {
+    padding: 28px 40px 48px;
+    gap: 28px;
+  }
+}
+
+.page--catalogue {
+  padding-bottom: 0;
+}
+
+/* ─── Typographie ──────────────────────────────────────────────────────── */
+.titre-page {
+  font-family: var(--police-manuscrite);
+  font-weight: 700;
+  font-size: clamp(38px, 7.5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.repere {
+  font-family: var(--police-repere);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--graphite);
+}
+
+.repere--fort {
+  font-size: 14px;
+  color: var(--sumi);
+}
+
+.repere--action {
+  color: var(--vermillon-texte);
+}
+
+.texte-doux {
+  color: var(--graphite);
+  font-size: 15px;
+}
+
+.intertitre {
+  font-family: var(--police-manuscrite);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--sumi);
+}
+
+.intertitre-ligne {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+/* Le séparateur maison : un pli vallée. */
+.pli-horizontal {
+  flex: 1;
+  border-top: 2px dashed var(--ligne-forte);
+}
+
+/* ─── Éléments ─────────────────────────────────────────────────────────── */
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 26px;
+  border-radius: var(--rayon-petit);
+  font-family: var(--police-titre);
+  font-weight: 800;
+  font-size: 17px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition:
+    transform 0.18s var(--courbe-rebond),
+    box-shadow 0.18s,
+    background-color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bouton:active {
+  transform: translateY(3px);
+}
+
+/* Bouton « tampon » : il s'enfonce quand on appuie. */
+.bouton--principal {
+  background: var(--vermillon);
+  color: var(--sur-vermillon);
+  box-shadow: var(--ombre-bouton);
+}
+
+.bouton--principal:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 var(--vermillon-fonce);
+}
+
+.bouton--principal:active {
+  box-shadow: 0 1px 0 var(--vermillon-fonce);
+}
+
+.bouton--secondaire {
+  border-color: var(--ligne-forte);
+  background: var(--verso);
+  box-shadow: 0 3px 0 var(--ligne-forte);
+}
+
+.bouton--secondaire:hover {
+  background: var(--sakura-pale);
+}
+
+.bouton--secondaire:active {
+  box-shadow: 0 1px 0 var(--ligne-forte);
+}
+
+.bouton--compact {
+  min-height: 46px;
+  padding: 0 20px;
+  font-size: 16px;
+  align-self: flex-start;
+}
+
+.lien-texte {
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--vermillon-pale);
+  text-underline-offset: 5px;
+  color: var(--graphite);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+}
+
+.lien-texte:hover {
+  color: var(--sumi);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Niveau : trois fleurs de cerisier. */
+.fleurs {
+  display: inline-flex;
+  gap: 1px;
+  align-items: center;
+}
+
+.fleur {
+  fill: color-mix(in srgb, currentColor 22%, transparent);
+}
+
+.fleur--pleine {
+  fill: currentColor;
+}
+
+.pastille-niveau {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 12px 0 8px;
+  border-radius: var(--rayon-pilule);
+  font-family: var(--police-repere);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.pastille-niveau--1 {
+  background: var(--menthe-pale);
+  color: var(--menthe-texte);
+}
+
+.pastille-niveau--2 {
+  background: var(--yuzu-pale);
+  color: var(--yuzu-texte);
+}
+
+.pastille-niveau--3 {
+  background: var(--sakura-pale);
+  color: var(--sakura-texte);
+}
+
+/* Coin corné : ce qui s'ouvre. */
+.coin-corne {
+  position: relative;
+  clip-path: polygon(0 0, calc(100% - var(--coin)) 0, 100% var(--coin), 100% 100%, 0 100%);
+}
+
+.coin-corne::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--coin);
+  height: var(--coin);
+  background: var(--sakura);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  border-bottom-left-radius: 6px;
+}
+
+.barre {
+  display: block;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--ligne);
+  overflow: hidden;
+}
+
+.barre__plein {
+  display: block;
+  height: 100%;
+  border-radius: 5px;
+  background: repeating-linear-gradient(-45deg, var(--vermillon) 0 8px, #d25b64 8px 16px);
+}
+
+/* ─── En-têtes ─────────────────────────────────────────────────────────── */
+.entete,
+.barre-haut {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+}
+
+.entete__marque {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-family: var(--police-titre);
+  font-weight: 800;
+  font-size: 28px;
+}
+
+.entete__kana {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sakura-texte);
+  background: var(--sakura-pale);
+  padding: 2px 10px;
+  border-radius: var(--rayon-pilule);
+  letter-spacing: 0.08em;
+}
+
+.lien-retour {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 16px 0 10px;
+  border-radius: var(--rayon-pilule);
+  background: var(--verso);
+  box-shadow: var(--ombre-carte);
+  font-family: var(--police-titre);
+  font-weight: 700;
+}
+
+.lien-retour:hover {
+  color: var(--vermillon-texte);
+}
+
+/* ─── Catalogue ────────────────────────────────────────────────────────── */
+.catalogue {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.accueil {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 22px 26px;
+  border-radius: var(--rayon);
+  background: linear-gradient(135deg, var(--verso) 0%, var(--sakura-pale) 55%, var(--sable) 100%);
+  border: 1px solid var(--ligne);
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  .accueil {
+    padding: 48px 48px 44px;
+  }
+}
+
+.accueil > :not(.accueil__decor) {
+  position: relative;
+  max-width: 640px;
+}
+
+.accueil__surtitre {
+  font-family: var(--police-titre);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--sakura-texte);
+}
+
+.accueil__texte {
+  font-size: 17px;
+  color: var(--texte-doux);
+  max-width: 44ch;
+}
+
+.accueil__decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.accueil__soleil {
+  position: absolute;
+  top: -10px;
+  right: 16px;
+  width: 92px;
+  height: 92px;
+  opacity: 0.9;
+}
+
+.accueil__nuage {
+  position: absolute;
+}
+
+.accueil__nuage--1 {
+  top: 54px;
+  right: -12px;
+  animation: flotter 9s ease-in-out infinite;
+}
+
+.accueil__nuage--2 {
+  top: 20px;
+  right: 120px;
+  animation: flotter 11s ease-in-out infinite reverse;
+}
+
+.accueil__fleur {
+  position: absolute;
+}
+
+.accueil__fleur--1 {
+  bottom: 22px;
+  right: 40px;
+  transform: rotate(18deg);
+}
+
+.accueil__fleur--2 {
+  bottom: 58px;
+  right: 84px;
+}
+
+@media (max-width: 560px) {
+  .accueil__soleil {
+    width: 64px;
+    height: 64px;
+    right: 4px;
+    top: -6px;
+  }
+  .accueil__nuage--1 {
+    top: 36px;
+    right: -40px;
+  }
+  .accueil__nuage--2 {
+    display: none;
+  }
+  .accueil__fleur--1,
+  .accueil__fleur--2 {
+    display: none;
+  }
+}
+
+@keyframes flotter {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-12px);
+  }
+}
+
+.carte-reprise {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+  background: color-mix(in srgb, var(--teinte, var(--sakura)) 12%, var(--verso));
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre-carte);
+  max-width: 560px;
+}
+
+.carte-reprise__haut {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.carte-reprise__textes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.carte-reprise__nom {
+  font-family: var(--police-manuscrite);
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.05;
+}
+
+.carte-reprise__dessin {
+  width: 120px;
+  height: 84px;
+  flex-shrink: 0;
+}
+
+.carte-reprise__progression {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.catalogue__section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filtres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filtre {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: var(--rayon-pilule);
+  border: 2px solid var(--ligne-forte);
+  background: var(--verso);
+  font-family: var(--police-titre);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform 0.18s var(--courbe-rebond);
+}
+
+.filtre:hover {
+  transform: translateY(-2px);
+}
+
+.filtre--1 .fleurs {
+  color: var(--menthe);
+}
+.filtre--2 .fleurs {
+  color: var(--yuzu);
+}
+.filtre--3 .fleurs {
+  color: var(--sakura);
+}
+
+.filtre[aria-pressed='true'] {
+  background: var(--sumi);
+  border-color: var(--sumi);
+  color: var(--papier);
+}
+
+.liste-modeles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: 18px;
+}
+
+.carte-modele {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: var(--rayon);
+  border: 1px solid var(--ligne);
+  background: var(--verso);
+  box-shadow: var(--ombre-carte);
+  overflow: hidden;
+  transition: transform 0.25s var(--courbe-rebond);
+}
+
+.carte-modele:hover {
+  transform: translateY(-4px) rotate(-0.6deg);
+}
+
+.carte-modele__vignette {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background-color: color-mix(in srgb, var(--teinte, var(--sakura)) 10%, #fffaf4);
+  background-image: radial-gradient(color-mix(in srgb, var(--teinte, var(--sakura)) 22%, transparent) 1.2px, transparent 1.6px);
+  background-size: 14px 14px;
+}
+
+/* Le dessin est posé dans la vignette sans en changer les proportions. */
+.carte-modele__dessin {
+  position: absolute;
+  inset: 18px;
+  width: calc(100% - 36px);
+  height: calc(100% - 36px);
+}
+
+.carte-modele__kana {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  padding: 2px 10px;
+  border-radius: var(--rayon-pilule);
+  background: #ffffffe0;
+  color: #3d4058;
+  font-family: var(--police-titre);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+.carte-modele__texte {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px 16px;
+}
+
+.carte-modele__nom {
+  font-family: var(--police-manuscrite);
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.carte-modele:hover .carte-modele__nom {
+  color: var(--vermillon-texte);
+}
+
+.carte-modele__meta {
+  font-size: 14px;
+  color: var(--graphite);
+}
+
+.carte-modele__bas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.carte-modele__etat {
+  font-family: var(--police-titre);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--vermillon-texte);
+}
+
+.vide {
+  color: var(--graphite);
+  padding: 20px 0;
+}
+
+.vagues {
+  display: block;
+  margin: 32px -40px 0;
+  width: calc(100% + 80px);
+  max-width: none;
+}
+
+@media (max-width: 899px) {
+  .vagues {
+    margin: 24px -16px 0;
+    width: calc(100% + 32px);
+  }
+}
+
+/* ─── Planche (zone des schémas) ───────────────────────────────────────── */
+.planche {
+  position: relative;
+  background-color: var(--planche);
+  background-image: radial-gradient(var(--planche-points) 1.2px, transparent 1.6px);
+  background-size: 18px 18px;
+  border: 3px solid var(--ligne);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre-carte);
+  aspect-ratio: 1 / 1;
+  max-height: 56vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.planche__schema {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.planche--anime {
+  padding-top: 48px;
+}
+
+.badge-anime {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 14px;
+  background: var(--vermillon);
+  color: var(--sur-vermillon);
+  font-family: var(--police-repere);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.planche__vitesse {
+  position: absolute;
+  top: 17px;
+  right: 16px;
+  font-family: var(--police-repere);
+  font-weight: 700;
+  font-size: 12px;
+  color: #5f6170;
+}
+
+/* ─── Lecteur ──────────────────────────────────────────────────────────── */
+.lecteur {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lecteur__controles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.bouton-rond {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--ligne-forte);
+  background: var(--verso);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 3px 0 var(--ligne-forte);
+  transition: transform 0.18s var(--courbe-rebond);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bouton-rond:hover {
+  border-color: var(--sumi);
+}
+
+.bouton-rond:active {
+  transform: translateY(2px);
+}
+
+.bouton-rond--plein {
+  width: 64px;
+  height: 64px;
+  border: 0;
+  background: var(--sumi);
+  color: var(--papier);
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--sumi) 60%, var(--papier));
+}
+
+.bouton-rond--texte {
+  font-family: var(--police-repere);
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.bouton-rond--texte.est-actif {
+  background: var(--yuzu);
+  border-color: var(--yuzu);
+  color: #3d4058;
+}
+
+.lecteur__defilement {
+  display: block;
+  padding: 0 4px;
+}
+
+.lecteur__defilement input[type='range'] {
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.lecteur__defilement input[type='range']::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(90deg, var(--ligne-forte) 0 10px, transparent 10px 16px);
+}
+
+.lecteur__defilement input[type='range']::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(90deg, var(--ligne-forte) 0 10px, transparent 10px 16px);
+}
+
+.lecteur__defilement input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  margin-top: -9px;
+  background: var(--vermillon);
+  border: 3px solid var(--verso);
+  border-radius: 50%;
+  box-shadow: 0 2px 0 var(--vermillon-fonce);
+}
+
+.lecteur__defilement input[type='range']::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--vermillon);
+  border: 3px solid var(--verso);
+  border-radius: 50%;
+}
+
+/* ─── Présentation d'un modèle ─────────────────────────────────────────── */
+.presentation {
+  display: grid;
+  gap: 28px;
+}
+
+@media (min-width: 900px) {
+  .presentation {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 56px;
+  }
+}
+
+.presentation__planche {
+  padding: 32px;
+  border: 0;
+  background-color: color-mix(in srgb, var(--teinte, var(--sakura)) 9%, #fffaf4);
+  background-image: radial-gradient(color-mix(in srgb, var(--teinte, var(--sakura)) 20%, transparent) 1.2px, transparent 1.6px);
+}
+
+.presentation__dessin {
+  width: 100%;
+  height: 100%;
+}
+
+.presentation__kana {
+  position: absolute;
+  bottom: 16px;
+  left: 18px;
+  font-family: var(--police-titre);
+  font-weight: 800;
+  font-size: 26px;
+  color: color-mix(in srgb, var(--teinte, var(--sakura)) 55%, #3d4058);
+  opacity: 0.55;
+  letter-spacing: 0.1em;
+}
+
+.presentation__texte {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.presentation__resume {
+  font-size: 18px;
+  color: var(--texte-doux);
+  max-width: 46ch;
+}
+
+.fiche {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 16px;
+  background: var(--verso);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre-carte);
+}
+
+@media (max-width: 480px) {
+  .fiche {
+    grid-template-columns: 1fr 1fr;
+  }
+  .fiche > div:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+.fiche > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fiche dd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.feuille {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  color: var(--texte-doux);
+}
+
+.feuille svg {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.lire-schemas {
+  border-top: 2px dashed var(--ligne-forte);
+  padding-top: 8px;
+}
+
+.lire-schemas summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-family: var(--police-titre);
+  font-weight: 700;
+}
+
+.lire-schemas .legende {
+  padding: 8px 0 4px;
+}
+
+/* ─── Légende de notation ──────────────────────────────────────────────── */
+.legende {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.legende__liste {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.legende__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--texte-doux);
+}
+
+.legende__item svg {
+  flex-shrink: 0;
+  color: var(--sumi);
+}
+
+/* ─── Étape ────────────────────────────────────────────────────────────── */
+.segments {
+  display: flex;
+  gap: 4px;
+  margin-top: -8px;
+}
+
+.segment {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--ligne);
+}
+
+.segment--anime {
+  background: var(--vermillon-pale);
+}
+
+.segment--fait {
+  background: var(--menthe);
+}
+
+.segment--actuel {
+  background: var(--sumi);
+}
+
+.segment--actuel.segment--anime {
+  background: var(--vermillon);
+}
+
+.etape {
+  display: grid;
+  gap: 20px;
+  flex: 1;
+}
+
+@media (min-width: 900px) {
+  .etape {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+  }
+
+  .etape__figure {
+    position: sticky;
+    top: 24px;
+  }
+
+  .planche {
+    max-height: 70vh;
+  }
+}
+
+.etape__texte {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 900px) {
+  .etape__texte {
+    padding-top: 12px;
+  }
+}
+
+.etape__titre {
+  font-family: var(--police-titre);
+  font-weight: 800;
+  font-size: clamp(26px, 4vw, 38px);
+  line-height: 1.15;
+}
+
+.etape__titre:focus {
+  outline: none;
+}
+
+.etape__consigne {
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 52ch;
+}
+
+.astuce {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 18px;
+  background: var(--yuzu-pale);
+  border-radius: var(--rayon-petit);
+  font-size: 16px;
+  color: var(--texte-doux);
+  --coin: 20px;
+}
+
+.astuce svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--yuzu-texte);
+}
+
+.navigation-etapes {
+  position: sticky;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  background: var(--papier);
+  border-top: 2px dashed var(--ligne-forte);
+  margin: 8px -16px -32px;
+  padding: 12px 16px max(16px, env(safe-area-inset-bottom));
+}
+
+@media (min-width: 900px) {
+  .navigation-etapes {
+    position: static;
+    margin: 12px 0 0;
+    padding: 20px 0 0;
+  }
+}
+
+/* ─── Fin ──────────────────────────────────────────────────────────────── */
+.fin {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 16px;
+  padding: 24px 0;
+}
+
+.fin__dessin-cadre {
+  width: min(340px, 80vw);
+  aspect-ratio: 3 / 2;
+  margin-bottom: 8px;
+  padding: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--sakura-pale) 0 60%, transparent 61%);
+}
+
+.fin__dessin {
+  width: 100%;
+  height: 100%;
+  animation: se-poser 1.2s var(--courbe-rebond) both;
+}
+
+@keyframes se-poser {
+  from {
+    opacity: 0;
+    transform: translateY(-24px) rotate(-8deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fin__bravo {
+  font-family: var(--police-titre);
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--vermillon-texte);
+  letter-spacing: 0.1em;
+}
+
+.fin__texte {
+  max-width: 44ch;
+  color: var(--texte-doux);
+  font-size: 18px;
+}
+
+.fin .actions {
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.pluie {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pluie__petale {
+  position: absolute;
+  top: -30px;
+  animation: tomber linear infinite;
+}
+
+.fin > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes tomber {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(30px, 50vh) rotate(180deg);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-10px, 105vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.introuvable {
+  justify-content: center;
+  align-items: flex-start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fin__dessin,
+  .accueil__nuage {
+    animation: none;
+  }
+  .pluie {
+    display: none;
+  }
+  .bouton,
+  .bouton-rond,
+  .filtre,
+  .carte-modele {
+    transition: none;
+  }
+}

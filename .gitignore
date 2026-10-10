@@ -1,0 +1,22 @@
+node_modules
+dist
+.apercu
+*.log
+.DS_Store
+
+# Éditeurs et outils
+.claude/
+.vscode/
+.idea/
+*.swp
+
+# Environnement
+.env
+.env.*
+*.local
+
+# Journaux et rapports
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+coverage
